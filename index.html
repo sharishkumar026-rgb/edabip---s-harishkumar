@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="EDABIP Enterprise Data Analytics and Business Intelligence Platform login"
+    >
+
+    <title>EDABIP - Login</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <!-- Background decoration -->
+        <div class="background-glow background-glow-left"></div>
+        <div class="background-glow background-glow-right"></div>
+
+        <!-- Header / Logo -->
+        <header class="site-header">
+            <a href="#" class="brand" aria-label="EDABIP home">
+                <span class="brand-symbol">ϟ</span>
+                <span class="brand-name">EDABIP</span>
+            </a>
+        </header>
+
+
+        <!-- Left Welcome Section -->
+        <section
+            class="welcome-section"
+            aria-labelledby="welcome-title"
+        >
+
+            <h1 id="welcome-title">
+                Welcome to EDABIP
+            </h1>
+
+            <p class="welcome-description">
+                Log in to access your Enterprise Data Analytics &
+                Business Intelligence Platform and continue making
+                data-driven decisions with confidence.
+            </p>
+
+
+            <!-- Features -->
+            <div class="features">
+
+                <article class="feature-item">
+
+                    <div class="feature-icon" aria-hidden="true">
+                        ↗
+                    </div>
+
+                    <div class="feature-content">
+                        <h2>Real-Time Analytics</h2>
+
+                        <p>
+                            Monitor metrics and performance in real-time
+                        </p>
+                    </div>
+
+                </article>
+
+
+                <article class="feature-item">
+
+                    <div class="feature-icon" aria-hidden="true">
+                        ○
+                    </div>
+
+                    <div class="feature-content">
+                        <h2>AI-Powered Insights</h2>
+
+                        <p>
+                            Discover patterns and predict outcome
+                        </p>
+                    </div>
+
+                </article>
+
+
+                <article class="feature-item">
+
+                    <div class="feature-icon" aria-hidden="true">
+                        ◈
+                    </div>
+
+                    <div class="feature-content">
+                        <h2>Enterprise Security</h2>
+
+                        <p>
+                            Bank-grade security and data governance
+                        </p>
+                    </div>
+
+                </article>
+
+
+                <article class="feature-item">
+
+                    <div class="feature-icon" aria-hidden="true">
+                        ⬡
+                    </div>
+
+                    <div class="feature-content">
+                        <h2>Scalable Platform</h2>
+
+                        <p>
+                            Build for performance and enterprise
+                        </p>
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <!-- Trust badge -->
+            <div class="trust-badge">
+                <span aria-hidden="true">◉</span>
+                Trusted by leading Enterprises worldwide
+            </div>
+
+        </section>
+
+
+        <!-- Login Section -->
+        <section
+            class="login-section"
+            aria-labelledby="login-title"
+        >
+
+            <div class="login-card">
+
+                <div class="login-card-header">
+
+                    <h2 id="login-title">
+                        Welcome Back
+                    </h2>
+
+                    <p>
+                        Log in to continue to your EDABIP dashboard
+                        and accelerate your analytics journey
+                    </p>
+
+                </div>
+
+
+                <!-- Login Tabs -->
+                <div class="login-tabs">
+
+                    <button
+                        type="button"
+                        class="tab-button"
+                        id="signupTab"
+                    >
+                        Sign up
+                    </button>
+
+                    <button
+                        type="button"
+                        class="tab-button active"
+                        id="loginTab"
+                    >
+                        Log in
+                    </button>
+
+                </div>
+
+
+                <!-- Login Form -->
+                <form id="loginForm" novalidate>
+
+                    <!-- Email -->
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter Your Email"
+                            autocomplete="email"
+                        >
+
+                        <small
+                            class="error-message"
+                            id="emailError"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- Password -->
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <div class="password-wrapper">
+
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter Your Password"
+                                autocomplete="current-password"
+                            >
+
+                            <button
+                                type="button"
+                                id="togglePassword"
+                                class="password-toggle"
+                                aria-label="Show password"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                        <small
+                            class="error-message"
+                            id="passwordError"
+                        ></small>
+
+                    </div>
+
+
+                    <!-- Remember / Forgot -->
+                    <div class="login-options">
+
+                        <label class="remember-option">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                                name="rememberMe"
+                            >
+
+                            <span>Remember me</span>
+
+                        </label>
+
+
+                        <a
+                            href="#"
+                            id="forgotPassword"
+                        >
+                            Forgot Password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- Login button -->
+                    <button
+                        type="submit"
+                        id="loginButton"
+                        class="login-button"
+                        disabled
+                    >
+                        Login
+                    </button>
+
+
+                    <!-- Login result -->
+                    <p
+                        id="loginMessage"
+                        class="login-message"
+                        role="status"
+                        aria-live="polite"
+                    ></p>
+
+                </form>
+
+
+                <!-- Sign up -->
+                <p class="signup-text">
+                    Don't have an account?
+                    <a href="#" id="signupLink">
+                        Sign up
+                    </a>
+                </p>
+
+
+                <!-- Divider -->
+                <div class="divider">
+                    <span>or sign up with</span>
+                </div>
+
+
+                <!-- Social buttons -->
+                <div class="social-buttons">
+
+                    <button
+                        type="button"
+                        class="social-button"
+                        id="googleButton"
+                        aria-label="Continue with Google"
+                    >
+                        G
+                    </button>
+
+                    <button
+                        type="button"
+                        class="social-button"
+                        id="microsoftButton"
+                        aria-label="Continue with Microsoft"
+                    >
+                        ▦
+                    </button>
+
+                </div>
+
+
+                <!-- Support -->
+                <p class="support-text">
+                    Need help?
+                    <a href="#" id="supportLink">
+                        Contact Support
+                    </a>
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Security visual placeholder -->
+        <div
+            class="security-visual"
+            aria-hidden="true"
+        >
+
+            <div class="security-ring ring-one"></div>
+            <div class="security-ring ring-two"></div>
+
+            <div class="security-shield">
+                <div class="lock">
+                    <div class="lock-body"></div>
+                    <div class="lock-hole"></div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+        <footer class="site-footer">
+
+            <p>
+                Trusted by Fortune 500 companies worldwide
+            </p>
+
+            <p>
+                © 2026 EDABIP Enterprise Data Analytics &
+                Business Intelligence Platform.
+            </p>
+
+        </footer>
+
+
+        <!-- Floating button -->
+        <button
+            type="button"
+            class="floating-button"
+            aria-label="EDABIP support"
+        >
+            ϟ
+        </button>
+
+    </main>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+</html>
