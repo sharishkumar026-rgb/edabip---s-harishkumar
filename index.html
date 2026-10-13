@@ -1,25 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta
         name="description"
         content="EDABIP Enterprise Data Analytics and Business Intelligence Platform"
     >
+    <meta name="theme-color" content="#08111f">
 
     <title>EDABIP | Secure Access</title>
 
+    <!-- Main stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
         rel="stylesheet"
-        href="css/style.css"
     >
 </head>
 
@@ -27,398 +27,708 @@
 
     <main class="login-page">
 
-        <!-- Background Effects -->
-        <div class="background-glow background-glow-left"></div>
-        <div class="background-glow background-glow-right"></div>
-
-
-        <!-- =================================================
-             HEADER
-             ================================================= -->
-
-        <header class="site-header">
-
-            <div class="brand">
-
-                <div class="brand-symbol">
-                    E
-                </div>
-
-                <div class="brand-name">
-                    EDABIP
-                </div>
-
-            </div>
-
-        </header>
-
-
-        <!-- =================================================
-             LEFT - WELCOME / PLATFORM INFORMATION
-             ================================================= -->
-
-        <section class="welcome-section">
-
-            <h1>
-                Welcome to
-                <span>EDABIP</span>
-            </h1>
-
-            <p>
-                Your centralized platform for transforming
-                enterprise data into meaningful insights,
-                intelligent decisions, and measurable business
-                outcomes.
-            </p>
-
-
-            <div class="features">
-
-                <div class="feature-item">
-
-                    <div class="feature-icon">
-                        ◈
-                    </div>
-
-                    <div class="feature-content">
-
-                        <h2>
-                            Unified Data Intelligence
-                        </h2>
-
-                        <p>
-                            Bring business information together
-                            through one intelligent analytics platform.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="feature-item">
-
-                    <div class="feature-icon">
-                        ◇
-                    </div>
-
-                    <div class="feature-content">
-
-                        <h2>
-                            Actionable Business Insights
-                        </h2>
-
-                        <p>
-                            Turn complex data into clear insights
-                            that support confident business decisions.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="feature-item">
-
-                    <div class="feature-icon">
-                        ◉
-                    </div>
-
-                    <div class="feature-content">
-
-                        <h2>
-                            Real-Time Analytics
-                        </h2>
-
-                        <p>
-                            Monitor important business information
-                            and performance through interactive analytics.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                <div class="feature-item">
-
-                    <div class="feature-icon">
-                        ✓
-                    </div>
-
-                    <div class="feature-content">
-
-                        <h2>
-                            Enterprise-Grade Security
-                        </h2>
-
-                        <p>
-                            Access your analytics environment through
-                            a secure and controlled workspace.
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="trust-badge">
-                Secure Enterprise Analytics Platform
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             CENTER - LOGIN
-             ================================================= -->
-
+        <!-- =========================================
+             LEFT SIDE: LOGIN SECTION
+        ========================================== -->
         <section class="login-section">
 
-            <div class="login-card">
+            <div class="login-container">
 
-                <div class="login-card-header">
+                <!-- BRAND -->
+                <header class="brand-header">
+                    <a href="#" class="brand-logo" aria-label="EDABIP home">
+                        <span class="brand-icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 48 48"
+                                width="42"
+                                height="42"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <rect
+                                    x="3"
+                                    y="3"
+                                    width="42"
+                                    height="42"
+                                    rx="13"
+                                    fill="#2563EB"
+                                />
+                                <path
+                                    d="M13 32V16H18L24 25L30 16H35V32H30V23L24 32L18 23V32H13Z"
+                                    fill="white"
+                                />
+                                <circle cx="35" cy="13" r="4" fill="#34D399"/>
+                            </svg>
+                        </span>
+
+                        <span class="brand-text">
+                            <span class="brand-name">EDABIP</span>
+                            <span class="brand-subtitle">INTELLIGENCE PLATFORM</span>
+                        </span>
+                    </a>
+                </header>
+
+                <!-- LOGIN INTRODUCTION -->
+                <div class="login-heading">
+                    <div class="welcome-label">
+                        <span class="welcome-dot"></span>
+                        SECURE WORKSPACE ACCESS
+                    </div>
 
                     <h1>
-                        Sign in to EDABIP
+                        Welcome<br>
+                        <span>back.</span>
                     </h1>
 
-                    <p>
-                        Access your analytics workspace
-                        and business intelligence tools.
+                    <p class="login-description">
+                        Sign in to access your analytics workspace,
+                        business intelligence, and enterprise insights.
+                    </p>
+                </div>
+
+                <!-- SIGN-IN TABS -->
+                <div class="login-tabs" role="tablist" aria-label="Sign-in method">
+                    <button
+                        type="button"
+                        class="login-tab active"
+                        id="emailTab"
+                        role="tab"
+                        aria-selected="true"
+                        aria-controls="emailLoginPanel"
+                    >
+                        Email &amp; Password
+                    </button>
+
+                    <button
+                        type="button"
+                        class="login-tab"
+                        id="ssoTab"
+                        role="tab"
+                        aria-selected="false"
+                        aria-controls="emailLoginPanel"
+                    >
+                        Enterprise SSO
+                    </button>
+                </div>
+
+                <!-- LOGIN FORM -->
+                <div class="login-form-panel" id="emailLoginPanel">
+
+                    <form id="loginForm" novalidate>
+
+                        <!-- EMAIL -->
+                        <div class="form-group">
+                            <label for="email">Work email address</label>
+
+                            <div class="input-wrapper">
+                                <span class="input-icon" aria-hidden="true">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        width="20"
+                                        height="20"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.7"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <rect
+                                            x="3"
+                                            y="5"
+                                            width="18"
+                                            height="14"
+                                            rx="2"
+                                        />
+                                        <path d="m3 7 9 6 9-6"/>
+                                    </svg>
+                                </span>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="you@company.com"
+                                    autocomplete="username"
+                                    required
+                                    aria-describedby="emailError"
+                                >
+                            </div>
+
+                            <small
+                                class="error-message"
+                                id="emailError"
+                                aria-live="polite"
+                            ></small>
+                        </div>
+
+                        <!-- PASSWORD -->
+                        <div class="form-group">
+                            <div class="label-row">
+                                <label for="password">Password</label>
+
+                                <a href="#" id="forgotPassword" class="forgot-link">
+                                    Forgot password?
+                                </a>
+                            </div>
+
+                            <div class="input-wrapper password-wrapper">
+                                <span class="input-icon" aria-hidden="true">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        width="20"
+                                        height="20"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.7"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <rect
+                                            x="4"
+                                            y="10"
+                                            width="16"
+                                            height="11"
+                                            rx="2"
+                                        />
+                                        <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+                                        <circle cx="12" cy="15" r="1"/>
+                                        <path d="M12 16v2"/>
+                                    </svg>
+                                </span>
+
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                                    required
+                                    aria-describedby="passwordError"
+                                >
+
+                                <!-- Password visibility button -->
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    id="togglePassword"
+                                    aria-label="Show password"
+                                    aria-pressed="false"
+                                    title="Show password"
+                                >
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        width="20"
+                                        height="20"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.7"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <small
+                                class="error-message"
+                                id="passwordError"
+                                aria-live="polite"
+                            ></small>
+                        </div>
+
+                        <!-- REMEMBER ME -->
+                        <div class="form-options">
+                            <label class="remember-option" for="rememberMe">
+                                <input
+                                    type="checkbox"
+                                    id="rememberMe"
+                                    name="rememberMe"
+                                >
+                                <span>Keep me signed in</span>
+                            </label>
+
+                            <span class="session-note">
+                                <svg
+                                    viewBox="0 0 20 20"
+                                    width="15"
+                                    height="15"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.6"
+                                    aria-hidden="true"
+                                >
+                                    <rect
+                                        x="4"
+                                        y="8"
+                                        width="12"
+                                        height="9"
+                                        rx="2"
+                                    />
+                                    <path d="M7 8V5a3 3 0 0 1 6 0v3"/>
+                                </svg>
+                                Secure session
+                            </span>
+                        </div>
+
+                        <!-- FORM STATUS -->
+                        <div
+                            class="form-message"
+                            id="formMessage"
+                            role="status"
+                            aria-live="polite"
+                        ></div>
+
+                        <!-- SIGN IN BUTTON -->
+                        <button
+                            type="submit"
+                            class="sign-in-button"
+                            id="loginButton"
+                        >
+                            <span class="button-text">Sign in to workspace</span>
+
+                            <svg
+                                class="button-arrow"
+                                viewBox="0 0 24 24"
+                                width="19"
+                                height="19"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M5 12h14"/>
+                                <path d="m12 5 7 7-7 7"/>
+                            </svg>
+                        </button>
+
+                    </form>
+
+                    <!-- DIVIDER -->
+                    <div class="divider">
+                        <span></span>
+                        <p>OR CONTINUE WITH</p>
+                        <span></span>
+                    </div>
+
+                    <!-- SOCIAL / ENTERPRISE LOGIN -->
+                    <div class="social-login">
+
+                        <!-- GOOGLE -->
+                        <button
+                            type="button"
+                            class="social-button google-button"
+                            id="googleLogin"
+                        >
+                            <svg
+                                viewBox="0 0 48 48"
+                                width="21"
+                                height="21"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    fill="#EA4335"
+                                    d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z"
+                                    transform="translate(0 4)"
+                                />
+                                <path
+                                    fill="#4285F4"
+                                    d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.96 46.98 31.75 46.98 24.55Z"
+                                />
+                                <path
+                                    fill="#FBBC05"
+                                    d="M10.53 28.59A14.4 14.4 0 0 1 9.75 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.52 2.56 10.78l7.97-6.19Z"
+                                    transform="translate(0 0)"
+                                />
+                                <path
+                                    fill="#34A853"
+                                    d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.92 2.3-8.18 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z"
+                                />
+                            </svg>
+
+                            <span>Google</span>
+                        </button>
+
+                        <!-- MICROSOFT 365 -->
+                        <button
+                            type="button"
+                            class="social-button microsoft-button"
+                            id="microsoftLogin"
+                        >
+                            <svg
+                                viewBox="0 0 24 24"
+                                width="20"
+                                height="20"
+                                aria-hidden="true"
+                            >
+                                <rect x="2" y="2" width="9" height="9" fill="#F25022"/>
+                                <rect x="13" y="2" width="9" height="9" fill="#7FBA00"/>
+                                <rect x="2" y="13" width="9" height="9" fill="#00A4EF"/>
+                                <rect x="13" y="13" width="9" height="9" fill="#FFB900"/>
+                            </svg>
+
+                            <span>Microsoft 365</span>
+                        </button>
+
+                    </div>
+
+                    <!-- SIGN UP -->
+                    <p class="signup-text">
+                        New to EDABIP?
+                        <a href="#" id="signupLink">Request workspace access</a>
                     </p>
 
                 </div>
 
+                <!-- FOOTER -->
+                <footer class="login-footer">
+                    <p>
+                        &copy; <span id="currentYear">2026</span> EDABIP.
+                        All rights reserved.
+                    </p>
 
-                <!-- Login / Sign Up Tabs -->
+                    <nav class="footer-links" aria-label="Legal links">
+                        <a href="#" id="privacyLink">Privacy</a>
+                        <span aria-hidden="true">·</span>
+                        <a href="#" id="termsLink">Terms</a>
+                        <span aria-hidden="true">·</span>
+                        <a href="#" id="helpLink">Help</a>
+                    </nav>
+                </footer>
 
-                <div class="login-tabs">
+            </div>
+        </section>
 
-                    <button
-                        type="button"
-                        id="loginTab"
-                        class="active"
-                    >
-                        Sign In
-                    </button>
+        <!-- =========================================
+             RIGHT SIDE: SECURITY / ANALYTICS PANEL
+        ========================================== -->
+        <aside class="visual-section">
 
-                    <button
-                        type="button"
-                        id="signupTab"
-                    >
-                        Create Account
-                    </button>
+            <div class="visual-background" aria-hidden="true">
+                <div class="visual-glow visual-glow-one"></div>
+                <div class="visual-glow visual-glow-two"></div>
+                <div class="visual-grid"></div>
+            </div>
 
-                </div>
+            <div class="visual-content">
 
-
-                <!-- Login Form -->
-
-                <form id="loginForm">
-
-                    <div class="form-group">
-
-                        <label for="email">
-                            Business Email
-                        </label>
-
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="Enter your business email"
-                            autocomplete="email"
-                        >
-
+                <!-- TOP STATUS -->
+                <div class="visual-topbar">
+                    <div class="platform-status">
+                        <span class="status-indicator"></span>
+                        ENTERPRISE INTELLIGENCE
                     </div>
 
+                    <div class="version-label">EDABIP / PLATFORM</div>
+                </div>
 
-                    <div class="form-group">
+                <!-- MAIN MESSAGE -->
+                <div class="visual-heading">
+                    <span class="visual-eyebrow">DATA. CLARITY. IMPACT.</span>
 
-                        <label for="password">
-                            Password
-                        </label>
+                    <h2>
+                        Turn data<br>
+                        into <span>direction.</span>
+                    </h2>
 
-                        <div class="password-wrapper">
+                    <p>
+                        One intelligent workspace for your analytics,
+                        performance metrics, and business decisions.
+                    </p>
+                </div>
 
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                placeholder="Enter your password"
-                                autocomplete="current-password"
-                            >
+                <!-- ANALYTICS DASHBOARD ILLUSTRATION -->
+                <div class="analytics-card">
 
-                            <button
-                                type="button"
-                                id="togglePassword"
-                                aria-label="Show password"
-                            >
-                                👁
-                            </button>
+                    <div class="analytics-card-header">
+                        <div>
+                            <span class="analytics-overline">PERFORMANCE OVERVIEW</span>
+                            <h3>Business intelligence</h3>
+                        </div>
 
+                        <span class="live-badge">
+                            <span></span>
+                            LIVE DEMO
+                        </span>
+                    </div>
+
+                    <!-- METRICS -->
+                    <div class="metrics-grid">
+
+                        <div class="metric-card">
+                            <div class="metric-topline">
+                                <span class="metric-label">Total revenue</span>
+
+                                <span class="metric-icon revenue-icon">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        width="18"
+                                        height="18"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M12 2v20"/>
+                                        <path d="M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                                    </svg>
+                                </span>
+                            </div>
+
+                            <div class="metric-value">$2.48M</div>
+
+                            <div class="metric-change positive">
+                                <span>↗</span> +12.8%
+                                <span class="metric-period">vs last month</span>
+                            </div>
+                        </div>
+
+                        <div class="metric-card">
+                            <div class="metric-topline">
+                                <span class="metric-label">Active users</span>
+
+                                <span class="metric-icon users-icon">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        width="18"
+                                        height="18"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="10" cy="7" r="4"/>
+                                        <path d="M20 21v-2a4 4 0 0 0-3-3.87"/>
+                                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                                    </svg>
+                                </span>
+                            </div>
+
+                            <div class="metric-value">18,642</div>
+
+                            <div class="metric-change positive">
+                                <span>↗</span> +8.4%
+                                <span class="metric-period">vs last month</span>
+                            </div>
                         </div>
 
                     </div>
 
+                    <!-- CHART -->
+                    <div class="chart-section">
+                        <div class="chart-header">
+                            <div>
+                                <h4>Revenue analytics</h4>
+                                <p>Monthly performance</p>
+                            </div>
 
-                    <div class="login-options">
+                            <span class="chart-period">LAST 7 MONTHS</span>
+                        </div>
 
-                        <label class="remember-option">
+                        <div class="chart-area">
+                            <div class="chart-y-labels" aria-hidden="true">
+                                <span>300k</span>
+                                <span>200k</span>
+                                <span>100k</span>
+                                <span>0</span>
+                            </div>
 
-                            <input
-                                type="checkbox"
-                                id="rememberMe"
-                            >
+                            <div class="chart-plot">
+                                <div class="chart-grid-line line-one"></div>
+                                <div class="chart-grid-line line-two"></div>
+                                <div class="chart-grid-line line-three"></div>
+                                <div class="chart-grid-line line-four"></div>
 
-                            <span>
-                                Keep me signed in
-                            </span>
+                                <svg
+                                    class="revenue-chart"
+                                    viewBox="0 0 420 150"
+                                    preserveAspectRatio="none"
+                                    role="img"
+                                    aria-label="Illustrative revenue trend increasing from March through September"
+                                >
+                                    <defs>
+                                        <linearGradient
+                                            id="chartFill"
+                                            x1="0"
+                                            y1="0"
+                                            x2="0"
+                                            y2="1"
+                                        >
+                                            <stop
+                                                offset="0%"
+                                                stop-color="#60A5FA"
+                                                stop-opacity="0.35"
+                                            />
+                                            <stop
+                                                offset="100%"
+                                                stop-color="#60A5FA"
+                                                stop-opacity="0"
+                                            />
+                                        </linearGradient>
+                                    </defs>
 
-                        </label>
+                                    <path
+                                        d="M0 120 C25 113 32 100 60 105 S100 82 120 90 S160 72 180 79 S220 48 240 59 S280 48 300 43 S340 20 360 32 S400 8 420 12 L420 150 L0 150 Z"
+                                        fill="url(#chartFill)"
+                                    />
 
+                                    <path
+                                        d="M0 120 C25 113 32 100 60 105 S100 82 120 90 S160 72 180 79 S220 48 240 59 S280 48 300 43 S340 20 360 32 S400 8 420 12"
+                                        fill="none"
+                                        stroke="#60A5FA"
+                                        stroke-width="3"
+                                        stroke-linecap="round"
+                                    />
 
-                        <a
-                            href="#"
-                            id="forgotPassword"
-                        >
-                            Forgot password?
-                        </a>
+                                    <circle cx="420" cy="12" r="5" fill="#60A5FA"/>
+                                    <circle
+                                        cx="420"
+                                        cy="12"
+                                        r="9"
+                                        fill="#60A5FA"
+                                        opacity="0.2"
+                                    />
+                                </svg>
 
+                                <div class="chart-x-labels" aria-hidden="true">
+                                    <span>Mar</span>
+                                    <span>Apr</span>
+                                    <span>May</span>
+                                    <span>Jun</span>
+                                    <span>Jul</span>
+                                    <span>Aug</span>
+                                    <span>Sep</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
+                    <!-- DATA SOURCE FOOTER -->
+                    <div class="analytics-card-footer">
+                        <div class="data-source">
+                            <span class="source-icon">
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    width="16"
+                                    height="16"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <ellipse cx="12" cy="5" rx="8" ry="3"/>
+                                    <path d="M4 5v14c0 1.66 3.58 3 8 3s8-1.34 8-3V5"/>
+                                    <path d="M4 12c0 1.66 3.58 3 8 3s8-1.34 8-3"/>
+                                </svg>
+                            </span>
 
-                    <button
-                        type="submit"
-                        id="loginButton"
-                        disabled
-                    >
-                        Continue to EDABIP
-                    </button>
+                            <span>Unified data intelligence</span>
+                        </div>
 
+                        <span class="sync-status">
+                            <span></span>
+                            Systems operational
+                        </span>
+                    </div>
 
-                    <div id="loginMessage"></div>
+                </div>
 
-                </form>
+                <!-- TRUST / SECURITY STRIP -->
+                <div class="security-strip">
 
+                    <div class="security-icon">
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/>
+                            <path d="m9 12 2 2 4-4"/>
+                        </svg>
+                    </div>
 
-                <p>
-                    New to EDABIP?
-                    <a
-                        href="#"
-                        id="signupLink"
-                    >
-                        Request platform access
-                    </a>
-                </p>
+                    <div class="security-copy">
+                        <h4>Security at every layer</h4>
+                        <p>Designed for secure enterprise data access.</p>
+                    </div>
 
+                    <div class="security-check" aria-label="Security feature">
+                        <svg
+                            viewBox="0 0 24 24"
+                            width="20"
+                            height="20"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="m5 12 4 4L19 6"/>
+                        </svg>
+                    </div>
 
-                <div class="divider">
+                </div>
 
-                    <span>
-                        or continue with
+                <!-- BOTTOM NOTE -->
+                <div class="visual-footer">
+                    <span>INSIGHT THAT MOVES BUSINESS FORWARD</span>
+
+                    <span class="footer-decoration" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
                     </span>
-
-                </div>
-
-
-                <div class="social-buttons">
-
-                    <button
-                        type="button"
-                        id="googleButton"
-                    >
-                        Google Workspace
-                    </button>
-
-                    <button
-                        type="button"
-                        id="microsoftButton"
-                    >
-                        Microsoft 365
-                    </button>
-
-                </div>
-
-
-                <div class="support-text">
-
-                    Need assistance?
-
-                    <a
-                        href="#"
-                        id="supportLink"
-                    >
-                        Contact EDABIP Support
-                    </a>
-
                 </div>
 
             </div>
-
-        </section>
-
-
-        <!-- =================================================
-             RIGHT - SECURITY VISUAL
-             ================================================= -->
-
-        <section class="security-visual">
-
-            <div class="security-ring ring-one"></div>
-
-            <div class="security-ring ring-two"></div>
-
-            <div class="security-shield">
-
-                <div class="lock">
-
-                    <div class="lock-body"></div>
-
-                    <div class="lock-hole"></div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             FOOTER
-             ================================================= -->
-
-        <footer class="site-footer">
-
-            <p>
-                © 2026 EDABIP · Enterprise Data Analytics &
-                Business Intelligence Platform
-            </p>
-
-        </footer>
-
-
-        <!-- =================================================
-             FLOATING SUPPORT BUTTON
-             ================================================= -->
-
-        <button
-            type="button"
-            class="floating-button"
-            aria-label="Open support"
-        >
-            ?
-        </button>
+        </aside>
 
     </main>
 
+    <!-- SUPPORT BUTTON -->
+    <button
+        type="button"
+        class="floating-button"
+        id="floatingSupport"
+        aria-label="Contact support"
+        title="Contact support"
+    >
+        <svg
+            viewBox="0 0 24 24"
+            width="22"
+            height="22"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+        >
+            <path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z"/>
+        </svg>
+    </button>
 
+    <!-- Main JavaScript: keep password-toggle logic in this file only -->
     <script src="js/script.js"></script>
 
 </body>
-
 </html>
 
