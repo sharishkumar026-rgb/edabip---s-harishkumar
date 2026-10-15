@@ -2,61 +2,79 @@
 /* =====================================================
    EDABIP — LOCAL STORAGE MANAGEMENT
    File: js/storage.js
-   Day 2: Remember Me and session persistence
+   Day 3: Remember Me, session persistence and logout
    ===================================================== */
 
-const STORAGE_KEYS = {
+const STORAGE_KEYS = Object.freeze({
     rememberedEmail: "edabip_remembered_email",
     session: "edabip_session"
-};
+});
+
 
 // =====================================================
 // 1. REMEMBERED EMAIL
 // =====================================================
 
 /**
- * Save the email only when Remember Me is enabled.
+ * Save an email only when Remember Me is enabled.
+ *
  * @param {string} email
  * @param {boolean} rememberMe
  */
 export function saveRememberedEmail(email, rememberMe) {
     try {
-        if (rememberMe && String(email ?? "").trim()) {
+        const normalizedEmail = String(email ?? "").trim();
+
+        if (rememberMe && normalizedEmail) {
             localStorage.setItem(
                 STORAGE_KEYS.rememberedEmail,
-                String(email).trim()
+                normalizedEmail
             );
         } else {
-            localStorage.removeItem(STORAGE_KEYS.rememberedEmail);
+            clearRememberedEmail();
         }
     } catch (error) {
-        console.error("EDABIP: Unable to save remembered email.", error);
+        console.error(
+            "EDABIP: Unable to save remembered email.",
+            error
+        );
     }
 }
 
 /**
- * Get the previously remembered email address.
+ * Retrieve the remembered email address.
+ *
  * @returns {string}
  */
 export function getRememberedEmail() {
     try {
-        return localStorage.getItem(STORAGE_KEYS.rememberedEmail) || "";
+        return localStorage.getItem(
+            STORAGE_KEYS.rememberedEmail
+        ) || "";
     } catch (error) {
-        console.error("EDABIP: Unable to retrieve remembered email.", error);
+        console.error(
+            "EDABIP: Unable to retrieve remembered email.",
+            error
+        );
+
         return "";
     }
 }
 
 /**
- * Clear the remembered email address.
+ * Remove the remembered email address.
  */
 export function clearRememberedEmail() {
     try {
         localStorage.removeItem(STORAGE_KEYS.rememberedEmail);
     } catch (error) {
-        console.error("EDABIP: Unable to clear remembered email.", error);
+        console.error(
+            "EDABIP: Unable to clear remembered email.",
+            error
+        );
     }
 }
+
 
 // =====================================================
 // 2. LOGIN SESSION
@@ -64,9 +82,14 @@ export function clearRememberedEmail() {
 
 /**
  * Save a successful demo login session.
- * Never store passwords in the session.
+ * Passwords must never be stored in this session.
  *
- * @param {{id: number|string, name: string, email: string, role: string}} user
+ * @param {{
+ *   id?: number|string,
+ *   name?: string,
+ *   email: string,
+ *   role?: string
+ * }} user
  */
 export function saveSession(user) {
     if (
@@ -74,14 +97,22 @@ export function saveSession(user) {
         typeof user.email !== "string" ||
         !user.email.trim()
     ) {
-        throw new Error("A valid user is required to create a session.");
+        throw new Error(
+            "A valid user is required to create a session."
+        );
     }
 
     const session = {
-        id: user.id ?? user.email,
-        name: user.name || "EDABIP User",
-        email: user.email.trim(),
-        role: user.role || "User",
+        id: user.id ?? user.email.trim(),
+        name:
+            typeof user.name === "string" && user.name.trim()
+                ? user.name.trim()
+                : "EDABIP User",
+        email: user.email.trim().toLowerCase(),
+        role:
+            typeof user.role === "string" && user.role.trim()
+                ? user.role.trim()
+                : "User",
         authenticated: true,
         loginTime: new Date().toISOString()
     };
@@ -92,70 +123,127 @@ export function saveSession(user) {
             JSON.stringify(session)
         );
     } catch (error) {
-        console.error("EDABIP: Unable to save login session.", error);
-        throw new Error("Unable to save your login session.");
+        console.error(
+            "EDABIP: Unable to save login session.",
+            error
+        );
+
+        throw new Error(
+            "Unable to save your login session. Please try again."
+        );
     }
 }
 
+
+// =====================================================
+// 3. RETRIEVE AND VALIDATE SESSION
+// =====================================================
+
 /**
- * Retrieve and validate the current demo login session.
- * @returns {object|null}
+ * Retrieve the current demo session.
+ *
+ * @returns {{
+ *   id: number|string,
+ *   name: string,
+ *   email: string,
+ *   role: string,
+ *   authenticated: boolean,
+ *   loginTime: string
+ * }|null}
  */
 export function getSession() {
+    let storedSession;
+
     try {
-        const storedSession = localStorage.getItem(STORAGE_KEYS.session);
+        storedSession = localStorage.getItem(
+            STORAGE_KEYS.session
+        );
+    } catch (error) {
+        console.error(
+            "EDABIP: Unable to access the login session.",
+            error
+        );
 
-        if (!storedSession) {
-            return null;
-        }
+        return null;
+    }
 
+    if (!storedSession) {
+        return null;
+    }
+
+    try {
         const session = JSON.parse(storedSession);
 
-        const isValid =
+        const validSession =
             session !== null &&
             typeof session === "object" &&
             session.authenticated === true &&
             typeof session.email === "string" &&
             session.email.trim() !== "" &&
             typeof session.name === "string" &&
+            typeof session.role === "string" &&
             typeof session.loginTime === "string" &&
             !Number.isNaN(Date.parse(session.loginTime));
 
-        if (!isValid) {
+        if (!validSession) {
             clearSession();
             return null;
         }
 
         return session;
     } catch (error) {
-        console.error("EDABIP: Unable to retrieve login session.", error);
+        console.error(
+            "EDABIP: Stored session contains invalid data.",
+            error
+        );
+
         clearSession();
         return null;
     }
 }
 
+
+// =====================================================
+// 4. AUTHENTICATION STATUS
+// =====================================================
+
 /**
  * Check whether a valid demo session exists.
+ *
  * @returns {boolean}
  */
 export function isAuthenticated() {
     return getSession() !== null;
 }
 
+
+// =====================================================
+// 5. CLEAR SESSION
+// =====================================================
+
 /**
- * Clear the current login session.
+ * Remove the current login session.
+ * The remembered email remains unchanged.
  */
 export function clearSession() {
     try {
         localStorage.removeItem(STORAGE_KEYS.session);
     } catch (error) {
-        console.error("EDABIP: Unable to clear login session.", error);
+        console.error(
+            "EDABIP: Unable to clear login session.",
+            error
+        );
     }
 }
 
+
+// =====================================================
+// 6. LOGOUT
+// =====================================================
+
 /**
- * Log out the current user.
- * The remembered email is preserved.
+ * Log out the current demo user.
+ * Remember Me is preserved.
  */
 export function logout() {
     clearSession();

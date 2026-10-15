@@ -10,6 +10,7 @@
     <title>EDABIP | Dashboard</title>
 
     <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/dashboard.js"></script>
 
     <style>
         .dashboard-page {
@@ -41,11 +42,28 @@
             color: #5ce1e6;
         }
 
-        .dashboard-user {
-            display: inline-block;
-            margin-right: 16px;
-            color: #b1bfd4;
+        .dashboard-header-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .dashboard-user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
             overflow-wrap: anywhere;
+        }
+
+        .dashboard-user {
+            color: #f4f7ff;
+            font-weight: 600;
+        }
+
+        .dashboard-role {
+            color: #8fa6c2;
+            font-size: .8rem;
         }
 
         .dashboard-logout {
@@ -71,6 +89,19 @@
         .dashboard-logout:disabled {
             opacity: .6;
             cursor: not-allowed;
+        }
+
+        .dashboard-message {
+            margin-top: 20px;
+            padding: 12px 16px;
+            color: #ffb8c0;
+            background: rgba(255, 125, 139, .08);
+            border: 1px solid rgba(255, 125, 139, .3);
+            border-radius: 10px;
+        }
+
+        .dashboard-message[hidden] {
+            display: none;
         }
 
         .dashboard-content {
@@ -138,15 +169,9 @@
                 flex-wrap: wrap;
             }
 
-            .dashboard-header > div:last-child {
-                display: flex;
-                align-items: center;
-                flex-wrap: wrap;
-                gap: 12px;
-            }
-
-            .dashboard-user {
-                margin-right: 0;
+            .dashboard-header-actions {
+                width: 100%;
+                justify-content: space-between;
             }
 
             .dashboard-content {
@@ -169,8 +194,6 @@
             }
         }
     </style>
-
-    <script type="module" src="js/dashboard.js"></script>
 </head>
 
 <body>
@@ -180,10 +203,15 @@
                 EDA<span>BIP</span>
             </div>
 
-            <div>
-                <span class="dashboard-user" id="dashboardUser">
-                    Loading user...
-                </span>
+            <div class="dashboard-header-actions">
+                <div class="dashboard-user-details">
+                    <span class="dashboard-user" id="dashboardUser">
+                        Loading user...
+                    </span>
+                    <span class="dashboard-role" id="dashboardRole">
+                        User
+                    </span>
+                </div>
 
                 <button
                     class="dashboard-logout"
@@ -194,6 +222,13 @@
                 </button>
             </div>
         </header>
+
+        <p
+            class="dashboard-message"
+            id="dashboardMessage"
+            role="alert"
+            hidden
+        ></p>
 
         <section
             class="dashboard-content"

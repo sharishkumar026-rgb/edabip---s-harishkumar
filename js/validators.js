@@ -1,11 +1,14 @@
 
-// ============================================
-// EDABIP — FORM VALIDATION
-// File: js/validators.js
-// ============================================
+/* =====================================================
+   EDABIP — FORM VALIDATION
+   File: js/validators.js
+   Day 3: Email and password validation
+   ===================================================== */
+
 
 /**
  * Validate an email address.
+ *
  * @param {string} email
  * @returns {string} Error message, or an empty string if valid.
  */
@@ -16,6 +19,7 @@ export function validateEmail(email) {
         return "Please enter your email address.";
     }
 
+    // Basic email format validation.
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailPattern.test(value)) {
@@ -25,8 +29,10 @@ export function validateEmail(email) {
     return "";
 }
 
+
 /**
  * Validate a password.
+ *
  * @param {string} password
  * @returns {string} Error message, or an empty string if valid.
  */
@@ -44,10 +50,16 @@ export function validatePassword(password) {
     return "";
 }
 
+
 /**
  * Validate all login form fields.
- * @param {{email: string, password: string}} fields
- * @returns {{email: string, password: string, isValid: boolean}}
+ *
+ * @param {{email?: string, password?: string}} fields
+ * @returns {{
+ *   email: string,
+ *   password: string,
+ *   isValid: boolean
+ * }}
  */
 export function validateLoginForm({ email, password } = {}) {
     const emailError = validateEmail(email);
@@ -59,4 +71,3 @@ export function validateLoginForm({ email, password } = {}) {
         isValid: !emailError && !passwordError
     };
 }
-

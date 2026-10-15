@@ -2,7 +2,7 @@
 /* =====================================================
    EDABIP — MAIN LOGIN CONTROLLER
    File: js/main.js
-   Day 2: Login validation, authentication and UI handling
+   Day 3: UI polish, accessibility and event handling
    ===================================================== */
 
 import { login } from "./auth.js";
@@ -21,11 +21,8 @@ import {
     setLoginLoading
 } from "./ui.js";
 
-import {
-    validateLoginForm
-} from "./validators.js";
+import { validateLoginForm } from "./validators.js";
 
-// Initialize after the HTML document has loaded.
 document.addEventListener("DOMContentLoaded", initializeLoginPage);
 
 
@@ -40,13 +37,12 @@ function initializeLoginPage() {
     const rememberMe = document.getElementById("rememberMe");
     const togglePassword = document.getElementById("togglePassword");
 
-    // Stop if the required login form is missing.
     if (!loginForm) {
         console.error("EDABIP: Login form #loginForm was not found.");
         return;
     }
 
-    // Restore the remembered email.
+    // Restore remembered email safely.
     if (emailInput && rememberMe) {
         try {
             const rememberedEmail = getRememberedEmail();
@@ -60,41 +56,47 @@ function initializeLoginPage() {
         }
     }
 
-    // Handle login form submission.
+    // Form submission.
     loginForm.addEventListener("submit", handleLoginSubmit);
 
-    // Clear errors when the user edits the email.
+    // Clear validation feedback as fields are edited.
     emailInput?.addEventListener("input", () => {
         showFieldError("email", "");
         showFormMessage("");
     });
 
-    // Clear errors when the user edits the password.
     passwordInput?.addEventListener("input", () => {
         showFieldError("password", "");
         showFormMessage("");
     });
 
-    // Password show/hide functionality.
+    // Password visibility toggle.
     if (togglePassword && passwordInput) {
+        togglePassword.type = "button";
         togglePassword.setAttribute("aria-label", "Show password");
         togglePassword.setAttribute("aria-pressed", "false");
 
         togglePassword.addEventListener("click", () => {
-            const shouldShow = passwordInput.type === "password";
+            const isPasswordHidden = passwordInput.type === "password";
 
-            passwordInput.type = shouldShow ? "text" : "password";
+            passwordInput.type = isPasswordHidden ? "text" : "password";
 
             togglePassword.setAttribute(
                 "aria-label",
-                shouldShow ? "Hide password" : "Show password"
+                isPasswordHidden ? "Hide password" : "Show password"
             );
 
             togglePassword.setAttribute(
                 "aria-pressed",
-                String(shouldShow)
+                String(isPasswordHidden)
             );
+
+            passwordInput.focus();
         });
+    } else {
+        console.warn(
+            "EDABIP: Password toggle or password input was not found."
+        );
     }
 
     // Prevent placeholder links from jumping to the top.
@@ -110,14 +112,14 @@ function initializeLoginPage() {
         });
     });
 
-    // Update the footer year automatically.
+    // Footer year.
     const currentYear = document.getElementById("currentYear");
 
     if (currentYear) {
         currentYear.textContent = new Date().getFullYear();
     }
 
-    // Google sign-in demo handler.
+    // Demo social sign-in messages.
     document.getElementById("googleLogin")?.addEventListener("click", () => {
         showFormMessage(
             "Google sign-in is a demo and is not connected to an identity provider.",
@@ -125,7 +127,6 @@ function initializeLoginPage() {
         );
     });
 
-    // Microsoft sign-in demo handler.
     document.getElementById("microsoftLogin")?.addEventListener("click", () => {
         showFormMessage(
             "Microsoft sign-in is a demo and is not connected to an identity provider.",
@@ -133,8 +134,22 @@ function initializeLoginPage() {
         );
     });
 
-    // Initialize email and SSO tabs.
+    // Email and SSO tabs.
     initializeLoginTabs();
+
+    // Support button.
+    document.getElementById("floatingSupport")?.addEventListener("click", () => {
+        const helpLink = document.getElementById("helpLink");
+
+        if (helpLink && helpLink.getAttribute("href") !== "#") {
+            window.location.href = helpLink.href;
+        } else {
+            showFormMessage(
+                "For support, please contact your EDABIP project coordinator.",
+                "info"
+            );
+        }
+    });
 
     console.info("EDABIP: Login page initialized successfully.");
 }
@@ -164,7 +179,7 @@ async function handleLoginSubmit(event) {
     const email = emailInput.value.trim();
     const password = passwordInput.value;
 
-    // Validate fields before attempting authentication.
+    // Validate before authentication.
     const validation = validateLoginForm({ email, password });
 
     if (!validation.isValid) {
@@ -173,21 +188,19 @@ async function handleLoginSubmit(event) {
             "Please correct the highlighted fields.",
             "error"
         );
-
         return;
     }
 
-    // Disable the login button and show the loading state.
     setLoginLoading(true);
 
+    let loginSucceeded = false;
+
     try {
-        // Authenticate against the JSON and registered demo users.
         const result = await login({ email, password });
 
         if (!result || !result.success) {
             if (result?.errors) {
                 showValidationErrors(result.errors);
-
                 showFormMessage(
                     "Please correct the highlighted fields.",
                     "error"
@@ -202,32 +215,39 @@ async function handleLoginSubmit(event) {
             return;
         }
 
-        // Store or clear the remembered email.
-        saveRememberedEmail(
-            email,
-            Boolean(rememberMe?.checked)
-        );
+        // Save or clear the remembered email preference.
+        saveRememberedEmail(email, Boolean(rememberMe?.checked));
 
-        // Show a success message before navigating.
+        loginSucceeded = true;
         showLoginSuccess();
 
-        // Redirect to the dashboard after successful login.
-        window.location.replace("./dashboard.html");
+        // Navigate only after successful authentication.
+        window.location.assign("./dashboard.html");
 
     } catch (error) {
         console.error("EDABIP: Login failed.", error);
 
-        showFormMessage(
-            error?.message?.toLowerCase().includes("users.json") ||
-            error?.message?.toLowerCase().includes("load user")
-                ? "Unable to load login data. Please try again."
-                : "Something went wrong. Please try again.",
-            "error"
-        );
+        const errorMessage = String(error?.message || "").toLowerCase();
 
+        if (
+            errorMessage.includes("users.json") ||
+            errorMessage.includes("load user") ||
+            errorMessage.includes("fetch")
+        ) {
+            showFormMessage(
+                "Unable to load login data. Please run the project with VS Code Live Server and try again.",
+                "error"
+            );
+        } else {
+            showFormMessage(
+                "Something went wrong. Please try again.",
+                "error"
+            );
+        }
     } finally {
-        // Restore the button after completion or failure.
-        setLoginLoading(false);
+        if (!loginSucceeded) {
+            setLoginLoading(false);
+        }
     }
 }
 
@@ -262,7 +282,7 @@ function initializeLoginTabs() {
         emailTab.setAttribute("aria-selected", "false");
 
         showFormMessage(
-            "Single sign-on is not connected in this demo.",
+            "Single sign-on is not connected in this demo. Please use email login.",
             "info"
         );
     });

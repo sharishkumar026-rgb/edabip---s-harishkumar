@@ -2,11 +2,11 @@
 /* =====================================================
    EDABIP — LOGIN UI MANAGEMENT
    File: js/ui.js
-   Day 2: Validation, loading and status states
+   Day 3: Validation, loading, accessibility and status states
    ===================================================== */
 
 /**
- * Find an element safely by ID.
+ * Safely find an element by its ID.
  * @param {string} id
  * @returns {HTMLElement|null}
  */
@@ -20,7 +20,7 @@ function getElement(id) {
 // =====================================================
 
 /**
- * Display an individual field validation error.
+ * Display or clear a field validation error.
  * Supports #emailError and #passwordError.
  *
  * @param {"email"|"password"} field
@@ -39,12 +39,13 @@ export function showFieldError(field, message = "") {
     if (inputElement) {
         inputElement.setAttribute("aria-invalid", String(hasError));
 
-        if (errorElement) {
-            if (hasError) {
-                inputElement.setAttribute("aria-describedby", errorElement.id);
-            } else {
-                inputElement.removeAttribute("aria-describedby");
-            }
+        if (hasError && errorElement) {
+            inputElement.setAttribute("aria-describedby", errorElement.id);
+        } else if (
+            !hasError &&
+            inputElement.getAttribute("aria-describedby") === `${field}Error`
+        ) {
+            inputElement.removeAttribute("aria-describedby");
         }
     }
 }
@@ -55,7 +56,8 @@ export function showFieldError(field, message = "") {
 // =====================================================
 
 /**
- * Display email and password validation errors.
+ * Display validation errors for email and password.
+ *
  * @param {{email?: string, password?: string}} errors
  */
 export function showValidationErrors(errors = {}) {
@@ -65,11 +67,11 @@ export function showValidationErrors(errors = {}) {
 
 
 // =====================================================
-// 3. GENERAL FORM MESSAGE
+// 3. GENERAL FORM STATUS MESSAGE
 // =====================================================
 
 /**
- * Display a login status message.
+ * Display a success, error or information message.
  *
  * @param {string} message
  * @param {"success"|"error"|"info"} type
@@ -79,14 +81,12 @@ export function showFormMessage(message, type = "info") {
 
     if (!messageElement) {
         if (message) {
-            console.info(`[EDABIP ${type}] ${message}`);
+            console.info(`[EDABIP ${type.toUpperCase()}] ${message}`);
         }
         return;
     }
 
-    messageElement.textContent = message;
-    messageElement.hidden = !message;
-
+    // Clear previous state classes.
     messageElement.classList.remove(
         "success",
         "error",
@@ -97,6 +97,8 @@ export function showFormMessage(message, type = "info") {
     );
 
     if (!message) {
+        messageElement.textContent = "";
+        messageElement.hidden = true;
         messageElement.removeAttribute("role");
         messageElement.removeAttribute("aria-live");
         return;
@@ -105,12 +107,23 @@ export function showFormMessage(message, type = "info") {
     const validTypes = ["success", "error", "info"];
     const messageType = validTypes.includes(type) ? type : "info";
 
+    messageElement.textContent = message;
+    messageElement.hidden = false;
+
+    // Support both common CSS naming conventions.
     messageElement.classList.add(messageType);
+    messageElement.classList.add(`message-${messageType}`);
+
+    // Announce important messages to assistive technology.
     messageElement.setAttribute(
         "role",
         messageType === "error" ? "alert" : "status"
     );
-    messageElement.setAttribute("aria-live", "polite");
+
+    messageElement.setAttribute(
+        "aria-live",
+        messageType === "error" ? "assertive" : "polite"
+    );
 }
 
 
@@ -119,25 +132,23 @@ export function showFormMessage(message, type = "info") {
 // =====================================================
 
 /**
- * Update the login button's loading state.
+ * Enable or disable the login button while signing in.
+ *
  * @param {boolean} isLoading
  */
 export function setLoginLoading(isLoading) {
     const button = getElement("loginButton");
 
-    if (!button) {
-        return;
-    }
+    if (!button) return;
+
+    const buttonText = button.querySelector(".button-text");
 
     button.disabled = isLoading;
     button.setAttribute("aria-busy", String(isLoading));
 
-    const buttonText = button.querySelector(".button-text");
+    if (!buttonText) return;
 
-    if (!buttonText) {
-        return;
-    }
-
+    // Store the original label once.
     if (!buttonText.dataset.originalText) {
         buttonText.dataset.originalText =
             buttonText.textContent.trim() || "Sign In";
@@ -154,7 +165,7 @@ export function setLoginLoading(isLoading) {
 // =====================================================
 
 /**
- * Clear field validation and general status messages.
+ * Clear all field errors and the general form message.
  */
 export function clearLoginMessages() {
     showValidationErrors({
@@ -171,7 +182,8 @@ export function clearLoginMessages() {
 // =====================================================
 
 /**
- * Display a successful login state.
+ * Display the successful login state.
+ * The main controller can redirect after calling this function.
  */
 export function showLoginSuccess() {
     const button = getElement("loginButton");
