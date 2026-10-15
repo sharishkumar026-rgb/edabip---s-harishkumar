@@ -1,8 +1,9 @@
 
-// ============================================
-// EDABIP — AUTHENTICATION
-// File: js/auth.js
-// ============================================
+/* =====================================================
+   EDABIP — AUTHENTICATION MODULE
+   File: js/auth.js
+   Day 2: JSON authentication and session handling
+   ===================================================== */
 
 import { validateLoginForm } from "./validators.js";
 import { loadUsers } from "./data.js";
@@ -23,19 +24,31 @@ function getRegisteredUsers() {
         }
 
         const users = JSON.parse(storedUsers);
-        return Array.isArray(users) ? users : [];
+
+        if (!Array.isArray(users)) {
+            console.warn("EDABIP: Registered user data is not an array.");
+            return [];
+        }
+
+        return users.filter(user =>
+            user &&
+            typeof user.email === "string" &&
+            typeof user.password === "string"
+        );
     } catch (error) {
-        console.error("Unable to read registered users:", error);
+        console.error("EDABIP: Could not read registered users.", error);
         return [];
     }
 }
 
 /**
  * Authenticate a user with email and password.
+ *
  * @param {{email: string, password: string}} credentials
  * @returns {Promise<{success: boolean, user?: object, errors?: object, message?: string}>}
  */
 export async function login({ email, password } = {}) {
+    // Validate the submitted credentials.
     const validation = validateLoginForm({ email, password });
 
     if (!validation.isValid) {
@@ -44,20 +57,32 @@ export async function login({ email, password } = {}) {
             errors: {
                 email: validation.email,
                 password: validation.password
-            }
+            },
+            message: "Please correct the highlighted fields."
         };
     }
 
     try {
+        // Load demo users. Errors here should not be treated
+        // as incorrect credentials.
         const demoUsers = await loadUsers();
+
+        if (!Array.isArray(demoUsers)) {
+            throw new Error("Unable to load login data. Please try again.");
+        }
+
+        // Add users registered locally in this prototype.
         const registeredUsers = getRegisteredUsers();
         const allUsers = [...demoUsers, ...registeredUsers];
 
         const normalizedEmail = String(email).trim().toLowerCase();
+        const submittedPassword = String(password);
 
+        // Match email case-insensitively and password exactly.
         const user = allUsers.find(candidate =>
+            candidate &&
             String(candidate.email ?? "").trim().toLowerCase() === normalizedEmail &&
-            String(candidate.password ?? "") === String(password)
+            String(candidate.password ?? "") === submittedPassword
         );
 
         if (!user) {
@@ -67,6 +92,7 @@ export async function login({ email, password } = {}) {
             };
         }
 
+        // Save only the user information needed for the session.
         const sessionUser = {
             id: user.id ?? user.email,
             name: user.name ?? "EDABIP User",
@@ -74,6 +100,7 @@ export async function login({ email, password } = {}) {
             role: user.role ?? "User"
         };
 
+        // Persist the authenticated session.
         saveSession(sessionUser);
 
         return {
@@ -81,13 +108,16 @@ export async function login({ email, password } = {}) {
             user: sessionUser,
             message: "Login successful! Redirecting to your dashboard..."
         };
+
     } catch (error) {
-        console.error("Login error:", error);
+        console.error("EDABIP authentication error:", error);
 
         return {
             success: false,
-            message: error.message ||
-                "Unable to sign in right now. Please try again."
+            errorType: "data",
+            message:
+                error?.message ||
+                "Unable to load login data. Please try again."
         };
     }
 }

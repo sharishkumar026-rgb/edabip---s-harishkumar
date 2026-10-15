@@ -42,6 +42,8 @@
         }
 
         .dashboard-user {
+            display: inline-block;
+            margin-right: 16px;
             color: #b1bfd4;
             overflow-wrap: anywhere;
         }
@@ -53,10 +55,22 @@
             border: 1px solid rgba(164, 190, 226, .2);
             border-radius: 10px;
             cursor: pointer;
+            transition: border-color .2s ease, background .2s ease;
         }
 
         .dashboard-logout:hover {
             border-color: #5ce1e6;
+            background: #17253a;
+        }
+
+        .dashboard-logout:focus-visible {
+            outline: 2px solid #5ce1e6;
+            outline-offset: 4px;
+        }
+
+        .dashboard-logout:disabled {
+            opacity: .6;
+            cursor: not-allowed;
         }
 
         .dashboard-content {
@@ -95,6 +109,12 @@
             background: rgba(13, 20, 34, .88);
             border: 1px solid rgba(164, 190, 226, .13);
             border-radius: 16px;
+            transition: transform .2s ease, border-color .2s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(92, 225, 230, .4);
         }
 
         .dashboard-card h2 {
@@ -118,6 +138,17 @@
                 flex-wrap: wrap;
             }
 
+            .dashboard-header > div:last-child {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .dashboard-user {
+                margin-right: 0;
+            }
+
             .dashboard-content {
                 margin-top: 42px;
             }
@@ -126,27 +157,51 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            .dashboard-card,
+            .dashboard-logout {
+                transition: none;
+            }
+
+            .dashboard-card:hover {
+                transform: none;
+            }
+        }
     </style>
 
     <script type="module" src="js/dashboard.js"></script>
 </head>
+
 <body>
     <main class="dashboard-page">
         <header class="dashboard-header">
-            <div class="dashboard-brand">EDA<span>BIP</span></div>
+            <div class="dashboard-brand" aria-label="EDABIP">
+                EDA<span>BIP</span>
+            </div>
 
             <div>
                 <span class="dashboard-user" id="dashboardUser">
                     Loading user...
                 </span>
-                <button class="dashboard-logout" id="logoutButton" type="button">
+
+                <button
+                    class="dashboard-logout"
+                    id="logoutButton"
+                    type="button"
+                >
                     Log out
                 </button>
             </div>
         </header>
 
-        <section class="dashboard-content" aria-labelledby="dashboardTitle">
-            <p class="dashboard-eyebrow">Enterprise intelligence platform</p>
+        <section
+            class="dashboard-content"
+            aria-labelledby="dashboardTitle"
+        >
+            <p class="dashboard-eyebrow">
+                Enterprise intelligence platform
+            </p>
 
             <h1 id="dashboardTitle">Welcome to EDABIP</h1>
 
@@ -157,17 +212,23 @@
             <div class="dashboard-grid">
                 <article class="dashboard-card">
                     <h2>Analytics</h2>
-                    <p>Explore business performance and data insights.</p>
+                    <p>
+                        Explore business performance and data insights.
+                    </p>
                 </article>
 
                 <article class="dashboard-card">
                     <h2>Reports</h2>
-                    <p>Review reporting tools and business summaries.</p>
+                    <p>
+                        Review reporting tools and business summaries.
+                    </p>
                 </article>
 
                 <article class="dashboard-card">
                     <h2>Settings</h2>
-                    <p>Manage your workspace preferences.</p>
+                    <p>
+                        Manage your workspace preferences.
+                    </p>
                 </article>
             </div>
         </section>

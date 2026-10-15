@@ -59,3 +59,4 @@ export function validateLoginForm({ email, password } = {}) {
         isValid: !emailError && !passwordError
     };
 }
+

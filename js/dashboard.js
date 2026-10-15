@@ -4,10 +4,7 @@
 // File: js/dashboard.js
 // ============================================
 
-import {
-    getSession,
-    logout
-} from "./storage.js";
+import { getSession, logout } from "./storage.js";
 
 document.addEventListener("DOMContentLoaded", initializeDashboard);
 
@@ -16,21 +13,24 @@ document.addEventListener("DOMContentLoaded", initializeDashboard);
 // --------------------------------------------
 
 function initializeDashboard() {
-    const session = getSession();
+    let session;
 
-    // Redirect users who are not logged in.
-    if (!session || session.authenticated !== true) {
-        window.location.replace("./index.html");
+    try {
+        session = getSession();
+    } catch (error) {
+        console.error("EDABIP session error:", error);
+        redirectToLogin();
         return;
     }
 
-    // Display the logged-in user's details.
+    // Redirect users who are not logged in.
+    if (!session || session.authenticated !== true) {
+        redirectToLogin();
+        return;
+    }
+
     displayUser(session);
-
-    // Set up logout.
-    const logoutButton = document.getElementById("logoutButton");
-
-    logoutButton?.addEventListener("click", handleLogout);
+    initializeLogout();
 }
 
 // --------------------------------------------
@@ -41,13 +41,18 @@ function displayUser(user) {
     const userElement = document.getElementById("dashboardUser");
     const welcomeElement = document.getElementById("dashboardWelcome");
 
+    const displayName =
+        typeof user.name === "string" && user.name.trim()
+            ? user.name.trim()
+            : user.email;
+
     if (userElement) {
-        userElement.textContent = user.name || user.email;
+        userElement.textContent = displayName;
     }
 
     if (welcomeElement) {
         welcomeElement.textContent =
-            `Welcome back, ${user.name || "EDABIP User"}. ` +
+            `Welcome back, ${displayName || "EDABIP User"}. ` +
             "Your analytics workspace is ready.";
     }
 }
@@ -56,10 +61,40 @@ function displayUser(user) {
 // LOGOUT
 // --------------------------------------------
 
-function handleLogout() {
-    logout();
+function initializeLogout() {
+    const logoutButton = document.getElementById("logoutButton");
 
-    // Return to login and prevent the dashboard from remaining
-    // in the current browser history entry.
+    if (!logoutButton) {
+        console.warn("EDABIP: Logout button was not found.");
+        return;
+    }
+
+    logoutButton.addEventListener("click", handleLogout);
+}
+
+function handleLogout() {
+    const logoutButton = document.getElementById("logoutButton");
+
+    if (logoutButton) {
+        logoutButton.disabled = true;
+    }
+
+    try {
+        logout();
+        redirectToLogin();
+    } catch (error) {
+        console.error("EDABIP logout error:", error);
+
+        if (logoutButton) {
+            logoutButton.disabled = false;
+        }
+    }
+}
+
+// --------------------------------------------
+// REDIRECT
+// --------------------------------------------
+
+function redirectToLogin() {
     window.location.replace("./index.html");
 }

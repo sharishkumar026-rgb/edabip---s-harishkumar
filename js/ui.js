@@ -1,8 +1,9 @@
 
-// ============================================
-// EDABIP — LOGIN UI MANAGEMENT
-// File: js/ui.js
-// ============================================
+/* =====================================================
+   EDABIP — LOGIN UI MANAGEMENT
+   File: js/ui.js
+   Day 2: Validation, loading and status states
+   ===================================================== */
 
 /**
  * Find an element safely by ID.
@@ -13,29 +14,45 @@ function getElement(id) {
     return document.getElementById(id);
 }
 
+
+// =====================================================
+// 1. FIELD VALIDATION ERRORS
+// =====================================================
+
 /**
  * Display an individual field validation error.
  * Supports #emailError and #passwordError.
+ *
  * @param {"email"|"password"} field
  * @param {string} message
  */
 export function showFieldError(field, message = "") {
     const errorElement = getElement(`${field}Error`);
     const inputElement = getElement(field);
+    const hasError = Boolean(message);
 
     if (errorElement) {
         errorElement.textContent = message;
-        errorElement.hidden = !message;
+        errorElement.hidden = !hasError;
     }
 
     if (inputElement) {
-        if (message) {
-            inputElement.setAttribute("aria-invalid", "true");
-        } else {
-            inputElement.removeAttribute("aria-invalid");
+        inputElement.setAttribute("aria-invalid", String(hasError));
+
+        if (errorElement) {
+            if (hasError) {
+                inputElement.setAttribute("aria-describedby", errorElement.id);
+            } else {
+                inputElement.removeAttribute("aria-describedby");
+            }
         }
     }
 }
+
+
+// =====================================================
+// 2. VALIDATION SUMMARY
+// =====================================================
 
 /**
  * Display email and password validation errors.
@@ -46,8 +63,14 @@ export function showValidationErrors(errors = {}) {
     showFieldError("password", errors.password || "");
 }
 
+
+// =====================================================
+// 3. GENERAL FORM MESSAGE
+// =====================================================
+
 /**
- * Display a general login status message.
+ * Display a login status message.
+ *
  * @param {string} message
  * @param {"success"|"error"|"info"} type
  */
@@ -63,6 +86,7 @@ export function showFormMessage(message, type = "info") {
 
     messageElement.textContent = message;
     messageElement.hidden = !message;
+
     messageElement.classList.remove(
         "success",
         "error",
@@ -72,12 +96,27 @@ export function showFormMessage(message, type = "info") {
         "message-info"
     );
 
-    if (message) {
-        messageElement.classList.add(type);
-        messageElement.setAttribute("role", type === "error" ? "alert" : "status");
-        messageElement.setAttribute("aria-live", "polite");
+    if (!message) {
+        messageElement.removeAttribute("role");
+        messageElement.removeAttribute("aria-live");
+        return;
     }
+
+    const validTypes = ["success", "error", "info"];
+    const messageType = validTypes.includes(type) ? type : "info";
+
+    messageElement.classList.add(messageType);
+    messageElement.setAttribute(
+        "role",
+        messageType === "error" ? "alert" : "status"
+    );
+    messageElement.setAttribute("aria-live", "polite");
 }
+
+
+// =====================================================
+// 4. LOGIN BUTTON LOADING STATE
+// =====================================================
 
 /**
  * Update the login button's loading state.
@@ -95,20 +134,27 @@ export function setLoginLoading(isLoading) {
 
     const buttonText = button.querySelector(".button-text");
 
-    if (buttonText) {
-        if (!buttonText.dataset.originalText) {
-            buttonText.dataset.originalText =
-                buttonText.textContent.trim() || "Sign In";
-        }
-
-        buttonText.textContent = isLoading
-            ? "Signing in..."
-            : buttonText.dataset.originalText;
+    if (!buttonText) {
+        return;
     }
+
+    if (!buttonText.dataset.originalText) {
+        buttonText.dataset.originalText =
+            buttonText.textContent.trim() || "Sign In";
+    }
+
+    buttonText.textContent = isLoading
+        ? "Signing in..."
+        : buttonText.dataset.originalText;
 }
 
+
+// =====================================================
+// 5. CLEAR LOGIN MESSAGES
+// =====================================================
+
 /**
- * Clear validation and status messages.
+ * Clear field validation and general status messages.
  */
 export function clearLoginMessages() {
     showValidationErrors({
@@ -119,8 +165,13 @@ export function clearLoginMessages() {
     showFormMessage("");
 }
 
+
+// =====================================================
+// 6. LOGIN SUCCESS STATE
+// =====================================================
+
 /**
- * Update the login button to display a success state.
+ * Display a successful login state.
  */
 export function showLoginSuccess() {
     const button = getElement("loginButton");
