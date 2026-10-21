@@ -1,0 +1,87 @@
+
+/* EDABIP — Brand Logo */
+
+.brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  color: #f4f7ff;
+}
+
+.brand-logo__symbol {
+  display: flex;
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(25, 195, 200, 0.4);
+  border-radius: 12px;
+  background: linear-gradient(
+    145deg,
+    rgba(25, 195, 200, 0.2),
+    rgba(124, 111, 242, 0.13)
+  );
+  box-shadow: 0 0 24px rgba(25, 195, 200, 0.08);
+  color: #31d6d8;
+  font-family: "Manrope", sans-serif;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.brand-logo__text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.brand-logo__name {
+  color: #f4f7ff;
+  font-family: "Manrope", sans-serif;
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  line-height: 1.2;
+}
+
+.brand-logo__subtitle {
+  color: #8497b2;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  line-height: 1.5;
+}
+
+.brand-logo--compact {
+  gap: 9px;
+}
+
+.brand-logo--compact .brand-logo__symbol {
+  width: 34px;
+  height: 34px;
+  flex-basis: 34px;
+  border-radius: 9px;
+  font-size: 19px;
+}
+
+.brand-logo--compact .brand-logo__name {
+  font-size: 17px;
+}
+
+@media (max-width: 480px) {
+  .brand-logo__symbol {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .brand-logo__name {
+    font-size: 19px;
+  }
+
+  .brand-logo__subtitle {
+    font-size: 8px;
+  }
+}

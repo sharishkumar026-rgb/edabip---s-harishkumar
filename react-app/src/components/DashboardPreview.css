@@ -1,0 +1,330 @@
+
+/* =========================================
+   EDABIP — DASHBOARD PREVIEW
+   File: src/components/DashboardPreview.css
+   ========================================= */
+
+.dashboard-preview {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  width: 100%;
+  min-width: 0;
+  padding: 30px;
+  overflow: hidden;
+  color: #f4f7ff;
+  background:
+    radial-gradient(ellipse at 80% 0%, rgba(57, 217, 195, 0.09), transparent 42%),
+    linear-gradient(145deg, #101a2a 0%, #0b1220 100%);
+  border: 1px solid rgba(151, 176, 207, 0.16);
+  border-radius: 22px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-preview__top,
+.dashboard-preview__eyebrow,
+.dashboard-preview__badge,
+.dashboard-preview__bottom {
+  display: flex;
+  align-items: center;
+}
+
+.dashboard-preview__top {
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dashboard-preview__eyebrow {
+  gap: 9px;
+  color: #a8b8cb;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.dashboard-preview__live-dot,
+.preview-chart__legend-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  background: #39d9c3;
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(57, 217, 195, 0.5);
+}
+
+.dashboard-preview__badge {
+  gap: 7px;
+  padding: 7px 10px;
+  color: #a7f3e8;
+  background: rgba(57, 217, 195, 0.08);
+  border: 1px solid rgba(57, 217, 195, 0.18);
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.dashboard-preview__heading h2 {
+  margin: 0;
+  color: #f4f7ff;
+  font-size: clamp(30px, 3.2vw, 43px);
+  font-weight: 800;
+  letter-spacing: -1.8px;
+  line-height: 1.13;
+}
+
+.dashboard-preview__heading h2 span {
+  color: #39d9c3;
+}
+
+.dashboard-preview__heading p {
+  margin: 13px 0 0;
+  color: #9eafc5;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.dashboard-preview__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.preview-metric {
+  min-width: 0;
+  padding: 17px;
+  background: rgba(19, 31, 48, 0.8);
+  border: 1px solid rgba(151, 176, 207, 0.13);
+  border-radius: 14px;
+}
+
+.preview-metric__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.preview-metric__label {
+  color: #9eafc5;
+  font-size: 11px;
+}
+
+.preview-metric__icon {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  flex: 0 0 27px;
+  place-items: center;
+  color: #39d9c3;
+  background: rgba(57, 217, 195, 0.1);
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.preview-metric__value {
+  margin: 15px 0 8px;
+  color: #f4f7ff;
+  font-size: clamp(22px, 2.3vw, 29px);
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  overflow-wrap: anywhere;
+}
+
+.preview-metric__change {
+  margin: 0;
+  color: #39d9a0;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.preview-metric__period {
+  color: #7f91a9;
+  font-weight: 400;
+}
+
+.preview-chart {
+  min-width: 0;
+  padding: 18px;
+  background: rgba(13, 22, 36, 0.76);
+  border: 1px solid rgba(151, 176, 207, 0.12);
+  border-radius: 15px;
+}
+
+.preview-chart__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.preview-chart__header h3 {
+  margin: 0;
+  color: #eef3fc;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.preview-chart__header p {
+  margin: 5px 0 0;
+  color: #8092aa;
+  font-size: 10px;
+}
+
+.preview-chart__period {
+  padding: 7px 9px;
+  color: #9eafc5;
+  background: #152237;
+  border: 1px solid rgba(151, 176, 207, 0.13);
+  border-radius: 7px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.preview-chart__chart {
+  display: grid;
+  grid-template-columns: 39px minmax(0, 1fr);
+  gap: 9px;
+  margin-top: 22px;
+}
+
+.preview-chart__y-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 23px;
+  color: #71839c;
+  font-size: 9px;
+  text-align: right;
+}
+
+.preview-chart__plot {
+  position: relative;
+  min-width: 0;
+  height: 155px;
+}
+
+.preview-chart__grid {
+  position: absolute;
+  inset: 0 0 23px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.preview-chart__grid span {
+  display: block;
+  width: 100%;
+  border-top: 1px dashed rgba(151, 176, 207, 0.13);
+}
+
+.preview-chart__svg {
+  position: absolute;
+  inset: 0 0 23px;
+  width: 100%;
+  height: calc(100% - 23px);
+  overflow: visible;
+}
+
+.preview-chart__months {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: space-between;
+  color: #71839c;
+  font-size: 9px;
+}
+
+.preview-chart__legend {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 13px;
+  color: #a8b8cb;
+  font-size: 10px;
+}
+
+.preview-chart__legend-dot {
+  width: 6px;
+  height: 6px;
+  flex-basis: 6px;
+}
+
+.preview-chart__legend-note {
+  margin-left: auto;
+  color: #71839c;
+  font-size: 9px;
+}
+
+.dashboard-preview__bottom {
+  gap: 10px;
+  padding-top: 17px;
+  color: #a8b8cb;
+  border-top: 1px solid rgba(151, 176, 207, 0.13);
+  font-size: 11px;
+}
+
+.dashboard-preview__bottom-icon {
+  display: grid;
+  width: 23px;
+  height: 23px;
+  place-items: center;
+  color: #39d9c3;
+  background: rgba(57, 217, 195, 0.1);
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+.dashboard-preview__bottom-stars {
+  margin-left: auto;
+  color: #39d9c3;
+}
+
+@media (max-width: 900px) {
+  .dashboard-preview {
+    gap: 22px;
+    padding: 24px;
+  }
+
+  .dashboard-preview__heading h2 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-preview {
+    gap: 19px;
+    padding: 18px;
+    border-radius: 16px;
+  }
+
+  .dashboard-preview__metrics {
+    gap: 8px;
+  }
+
+  .preview-metric {
+    padding: 12px;
+  }
+
+  .preview-metric__value {
+    font-size: 22px;
+  }
+
+  .preview-chart {
+    padding: 12px;
+  }
+
+  .preview-chart__period {
+    font-size: 8px;
+  }
+
+  .preview-chart__chart {
+    grid-template-columns: 33px minmax(0, 1fr);
+    gap: 6px;
+  }
+}

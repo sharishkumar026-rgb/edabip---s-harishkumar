@@ -1,0 +1,244 @@
+
+/* =====================================================
+   EDABIP — GLOBAL STYLES
+   File: src/index.css
+   Task 3: React + TypeScript
+   ===================================================== */
+
+/* 1. DESIGN TOKENS */
+:root {
+  font-family: "DM Sans", "Manrope", Arial, sans-serif;
+  color: #f4f7ff;
+  background: #070b14;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --bg: #070b14;
+  --surface: #0d1422;
+  --surface-2: #111c2d;
+  --surface-3: #17253a;
+  --text: #f4f7ff;
+  --text-soft: #b1bfd4;
+  --text-muted: #7f91aa;
+  --border: rgba(177, 191, 212, 0.14);
+  --accent: #19c3c8;
+  --accent-hover: #31d6d8;
+  --purple: #7c6ff2;
+  --success: #39d98a;
+  --error: #ff7d8b;
+  --radius: 14px;
+  --transition: 180ms ease;
+}
+
+/* 2. RESET */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(25, 195, 200, 0.07),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 85% 80%,
+      rgba(124, 111, 242, 0.08),
+      transparent 35%
+    ),
+    var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: "DM Sans", "Manrope", Arial, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font-size: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+::selection {
+  color: #fff;
+  background: rgba(25, 195, 200, 0.35);
+}
+
+/* 3. SHARED TEXT */
+h1,
+h2,
+h3,
+h4,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+  letter-spacing: -0.035em;
+}
+
+.muted,
+.text-muted {
+  color: var(--text-muted);
+}
+
+.text-soft {
+  color: var(--text-soft);
+}
+
+/* 4. LOADING STATE */
+.auth-loading {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  color: var(--text-soft);
+  text-align: center;
+}
+
+.auth-loading p {
+  margin: 0;
+}
+
+.auth-loading__spinner {
+  width: 34px;
+  height: 34px;
+  border: 3px solid rgba(25, 195, 200, 0.18);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: edabip-spin 800ms linear infinite;
+}
+
+@keyframes edabip-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 5. COMMON BUTTONS */
+.btn {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    transform var(--transition);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.btn-primary {
+  color: #041416;
+  background: var(--accent);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.btn-secondary {
+  color: var(--text);
+  background: var(--surface-2);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--surface-3);
+  border-color: rgba(25, 195, 200, 0.35);
+}
+
+/* 6. ACCESSIBILITY */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+/* 7. RESPONSIVE HELPERS */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+}

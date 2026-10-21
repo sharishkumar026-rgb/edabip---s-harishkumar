@@ -1,0 +1,73 @@
+
+/* EDABIP — Login Footer */
+
+.login-footer {
+  display: flex;
+  width: 100%;
+  max-width: 460px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin: auto auto 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(177, 191, 212, 0.1);
+  color: #7f91aa;
+  font-size: 11px;
+}
+
+.login-footer__copyright {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.login-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.login-footer__links a {
+  color: #9aabc2;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.login-footer__links a:hover {
+  color: #31d6d8;
+}
+
+.login-footer__separator {
+  color: #53647c;
+}
+
+.login-footer__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #9aabc2;
+  white-space: nowrap;
+}
+
+.login-footer__status-dot {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #39d98a;
+  box-shadow: 0 0 8px rgba(57, 217, 138, 0.35);
+}
+
+@media (max-width: 480px) {
+  .login-footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 15px;
+  }
+
+  .login-footer__links {
+    gap: 7px;
+  }
+}
